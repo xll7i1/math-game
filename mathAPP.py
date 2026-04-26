@@ -11,17 +11,24 @@ def check_password():
 
     st.markdown("""
     <style>
+    @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap');
+
+    html, body, [class*="css"] {
+        font-family: 'Tajawal', sans-serif;
+        direction: rtl;
+    }
+
     header {display: none;}
 
     .block-container {
-        padding-top: 80px;
-        max-width: 720px;
+        padding-top: 95px;
+        max-width: 620px;
         margin: auto;
     }
 
     .stApp {
         background-image:
-        linear-gradient(rgba(255,255,255,0.55), rgba(255,255,255,0.70)),
+        linear-gradient(rgba(255,255,255,0.42), rgba(255,255,255,0.56)),
         url("https://img.freepik.com/premium-vector/math-theme-blank-banner-with-math-tools_1639-53505.jpg");
         background-size: cover;
         background-position: center;
@@ -35,17 +42,18 @@ def check_password():
         width: 100%;
         background: linear-gradient(90deg, #ec4899, #7c3aed, #06b6d4);
         color: white;
-        font-size: 26px;
+        font-size: 20px;
         font-weight: 900;
-        padding: 16px 0;
+        padding: 12px 0;
         overflow: hidden;
         z-index: 999999;
+        box-shadow: 0 5px 18px rgba(0,0,0,0.20);
     }
 
     .moving-text {
         display: inline-block;
         white-space: nowrap;
-        animation: moveText 15s linear infinite;
+        animation: moveText 16s linear infinite;
     }
 
     @keyframes moveText {
@@ -53,40 +61,53 @@ def check_password():
         100% {transform: translateX(-100%);}
     }
 
-    .login-title {
-        text-align: center;
-        color: #25194f;
-        font-size: 46px;
-        font-weight: 900;
-        margin-top: 60px;
-        margin-bottom: 25px;
+    div[data-testid="stVerticalBlock"] {
+        gap: 0.7rem;
     }
 
-    div[data-testid="stForm"] {
-        background: rgba(255,255,255,0.92);
-        padding: 45px;
-        border-radius: 30px;
-        box-shadow: 0 15px 40px rgba(0,0,0,0.18);
+    .login-card {
+        background: rgba(255,255,255,0.93);
         border: 4px solid #ec4899;
+        border-radius: 28px;
+        padding: 38px 34px 30px 34px;
+        box-shadow: 0 18px 45px rgba(0,0,0,0.18);
+        text-align: center;
+    }
+
+    .login-main-title {
+        color: #25194f;
+        font-size: 34px;
+        font-weight: 900;
+        margin-bottom: 22px;
     }
 
     .password-title {
-        text-align: center;
         color: #ec4899;
-        font-size: 36px;
+        font-size: 34px;
         font-weight: 900;
-        margin-bottom: 30px;
+        margin-bottom: 22px;
     }
 
-    /* مربع إدخال كلمة المرور */
-    div[data-testid="stTextInput"] input {
+    div[data-testid="stTextInput"] {
+        margin-bottom: 18px;
+    }
+
+    div[data-testid="stTextInput"] > div {
         background: linear-gradient(90deg, #ffe4f1, #f3e8ff) !important;
-        color: #25194f !important;
         border: 3px solid #ec4899 !important;
-        border-radius: 18px !important;
-        height: 70px !important;
-        font-size: 24px !important;
+        border-radius: 17px !important;
+        min-height: 64px !important;
+        box-shadow: none !important;
+        overflow: hidden !important;
+    }
+
+    div[data-testid="stTextInput"] input {
+        background: transparent !important;
+        border: none !important;
+        color: #25194f !important;
+        font-size: 21px !important;
         text-align: center !important;
+        height: 64px !important;
         box-shadow: none !important;
     }
 
@@ -95,23 +116,29 @@ def check_password():
         opacity: 1 !important;
     }
 
-    /* إزالة خلفية أيقونة العين السوداء */
     div[data-testid="stTextInput"] button {
         background: transparent !important;
-        color: #ec4899 !important;
         border: none !important;
         box-shadow: none !important;
+        color: #ec4899 !important;
     }
 
-    div[data-testid="stFormSubmitButton"] button {
-        height: 70px;
-        font-size: 26px;
+    .stButton>button {
+        height: 66px;
+        font-size: 24px;
         font-weight: 900;
-        border-radius: 20px;
+        border-radius: 18px;
         border: none;
         color: white;
         background: linear-gradient(90deg, #ec4899, #7c3aed, #06b6d4);
-        box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        box-shadow: 0 12px 25px rgba(0,0,0,0.18);
+        transition: 0.25s;
+    }
+
+    .stButton>button:hover {
+        transform: scale(1.02);
+        color: white;
+        background: linear-gradient(90deg, #f43f9a, #8b5cf6, #06b6d4);
     }
     </style>
     """, unsafe_allow_html=True)
@@ -119,35 +146,35 @@ def check_password():
     st.markdown("""
     <div class="moving-header">
         <div class="moving-text">
-            💜 I love math &nbsp;&nbsp;&nbsp;
-            ✨ Math is fun &nbsp;&nbsp;&nbsp;
-            🧠 الرياضيات ممتعة &nbsp;&nbsp;&nbsp;
-            📐 أحب الرياضيات &nbsp;&nbsp;&nbsp;
-            🎯 التحدي يزيد المتعة
+            💜 I love math &nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;
+            ✨ Math is fun &nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;
+            🎯 التحدي يزيد المتعة &nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;
+            ⭐ عالم جميل
         </div>
     </div>
     """, unsafe_allow_html=True)
 
-    st.markdown('<div class="login-title">🧠 تحدي عبقري الرياضيات</div>', unsafe_allow_html=True)
+    st.markdown("""
+    <div class="login-card">
+        <div class="login-main-title">🧠 تحدي عبقري الرياضيات</div>
+        <div class="password-title">🔒 ادخلي كلمة المرور</div>
+    """, unsafe_allow_html=True)
 
-    with st.form("password_form"):
-        st.markdown('<div class="password-title">🔒 ادخلي كلمة المرور</div>', unsafe_allow_html=True)
+    password = st.text_input(
+        "كلمة المرور",
+        type="password",
+        placeholder="اكتبي كلمة المرور هنا",
+        label_visibility="collapsed"
+    )
 
-        password = st.text_input(
-            "كلمة المرور",
-            type="password",
-            placeholder="اكتبي كلمة المرور هنا",
-            label_visibility="collapsed"
-        )
+    if st.button("🚀 دخول", use_container_width=True):
+        if password == st.secrets["APP_PASSWORD"]:
+            st.session_state.password_correct = True
+            st.rerun()
+        else:
+            st.error("❌ كلمة المرور غلط")
 
-        submitted = st.form_submit_button("🚀 دخول", use_container_width=True)
-
-        if submitted:
-            if password == st.secrets["APP_PASSWORD"]:
-                st.session_state.password_correct = True
-                st.rerun()
-            else:
-                st.error("❌ كلمة المرور غلط")
+    st.markdown("</div>", unsafe_allow_html=True)
 
     return False
 
