@@ -470,29 +470,29 @@ elif st.session_state.page == "quiz":
         st.markdown('<div class="wrong-box">❌ إجابة خاطئة 😢</div>', unsafe_allow_html=True)
         sad_faces()
 
-    col_back, col_next = st.columns(2)
+        col_back, col_next = st.columns(2)
 
-    with col_back:  
-     if st.button("⬅️ السابق", use_container_width=True):
-        if st.session_state.q_index > 0:
-            st.session_state.q_index -= 1
+    with col_back:
+        if st.button("⬅️ السابق", use_container_width=True):
+            if st.session_state.q_index > 0:
+                st.session_state.q_index -= 1
+                st.session_state.answered = False
+                st.session_state.result = ""
+                st.session_state.selected = ""
+                st.rerun()
+
+    with col_next:
+        if st.button("التالي ➡️", use_container_width=True):
             st.session_state.answered = False
             st.session_state.result = ""
             st.session_state.selected = ""
-            st.rerun()
 
-    with col_next:
-      if st.button("التالي ➡️", use_container_width=True):
-        st.session_state.answered = False
-        st.session_state.result = ""
-        st.session_state.selected = ""
-
-        if st.session_state.q_index < len(questions) - 1:
-            st.session_state.q_index += 1
-            st.rerun()
-        else:
-            st.session_state.page = "end"
-            st.rerun()
+            if st.session_state.q_index < len(questions) - 1:
+                st.session_state.q_index += 1
+                st.rerun()
+            else:
+                st.session_state.page = "end"
+                st.rerun()
 
 
 elif st.session_state.page == "end":
