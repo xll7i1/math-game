@@ -11,96 +11,130 @@ def check_password():
 
     st.markdown("""
     <style>
-    /* الخلفية */
+    header {display: none;}
+
+    .block-container {
+        padding-top: 90px;
+        max-width: 700px;
+        margin: auto;
+    }
+
     .stApp {
-        background-image: linear-gradient(rgba(255,255,255,0.6), rgba(255,255,255,0.6)),
+        background-image:
+        linear-gradient(rgba(255,255,255,0.55), rgba(255,255,255,0.7)),
         url("https://img.freepik.com/premium-vector/math-theme-blank-banner-with-math-tools_1639-53505.jpg");
         background-size: cover;
         background-position: center;
+        background-attachment: fixed;
     }
 
-    /* الهيدر المتحرك */
     .moving-header {
         position: fixed;
         top: 0;
         left: 0;
         width: 100%;
-        padding: 10px;
-        background: linear-gradient(90deg, #ff7eb3, #6a5af9);
+        background: linear-gradient(90deg, #ec4899, #7c3aed, #06b6d4);
         color: white;
-        font-size: 18px;
-        white-space: nowrap;
+        font-size: 26px;
+        font-weight: 900;
+        padding: 16px 0;
         overflow: hidden;
-        z-index: 999;
+        z-index: 999999;
+        box-shadow: 0 6px 20px rgba(0,0,0,0.25);
     }
 
-    .moving-header span {
+    .moving-text {
         display: inline-block;
-        padding-left: 100%;
-        animation: move 12s linear infinite;
+        white-space: nowrap;
+        animation: moveText 15s linear infinite;
     }
 
-    @keyframes move {
-        0% { transform: translateX(0); }
-        100% { transform: translateX(-100%); }
+    @keyframes moveText {
+        0% {transform: translateX(100%);}
+        100% {transform: translateX(-100%);}
     }
 
-    /* صندوق الباسورد */
-    .login-box {
-        background: white;
-        padding: 40px;
-        border-radius: 20px;
-        width: 40%;
-        margin: auto;
-        margin-top: 150px;
+    .login-title {
         text-align: center;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        color: #25194f;
+        font-size: 42px;
+        font-weight: 900;
+        margin-top: 70px;
+        margin-bottom: 25px;
     }
 
-    /* عنوان */
-    .title {
-        font-size: 30px;
-        font-weight: bold;
+    .login-subtitle {
+        text-align: center;
+        color: #ec4899;
+        font-size: 55px;
+        margin-bottom: 10px;
+    }
+
+    .login-label {
+        text-align: center;
+        color: #25194f;
+        font-size: 26px;
+        font-weight: 900;
         margin-bottom: 20px;
-        color: #444;
     }
 
-    /* زر */
-    .btn {
-        background: linear-gradient(90deg, #ff7eb3, #6a5af9);
-        color: white;
+    div[data-testid="stTextInput"] input {
+        background: linear-gradient(90deg, #ffe4f1, #f3e8ff) !important;
+        border: 3px solid #ec4899 !important;
+        border-radius: 18px !important;
+        height: 70px !important;
+        font-size: 24px !important;
+        color: #25194f !important;
+        text-align: center !important;
+    }
+
+    .stButton>button {
+        height: 70px;
+        font-size: 26px;
+        font-weight: 900;
+        border-radius: 20px;
         border: none;
-        padding: 12px;
-        border-radius: 10px;
-        width: 100%;
-        font-size: 18px;
-        margin-top: 15px;
-        cursor: pointer;
+        color: white;
+        background: linear-gradient(90deg, #ec4899, #7c3aed, #06b6d4);
+        box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    }
+
+    .stButton>button:hover {
+        transform: scale(1.03);
+        color: white;
     }
     </style>
     """, unsafe_allow_html=True)
 
-    # الهيدر
     st.markdown("""
     <div class="moving-header">
-        <span>💜 I love math ✨ Math is fun 💜 الرياضيات ممتعة 🎯</span>
+        <div class="moving-text">
+            💜 I love math &nbsp;&nbsp;&nbsp;
+            ✨ Math is fun &nbsp;&nbsp;&nbsp;
+            🧠 الرياضيات ممتعة &nbsp;&nbsp;&nbsp;
+            📐 أحب الرياضيات &nbsp;&nbsp;&nbsp;
+            🎯 التحدي يزيد المتعة
+        </div>
     </div>
     """, unsafe_allow_html=True)
 
-    # الصندوق
-    st.markdown('<div class="login-box">', unsafe_allow_html=True)
-    st.markdown('<div class="title">🔒 ادخل كلمة المرور</div>', unsafe_allow_html=True)
+    st.markdown('<div class="login-title">🧠 تحدي عبقري الرياضيات</div>', unsafe_allow_html=True)
+    st.markdown('<div class="login-subtitle">🔒</div>', unsafe_allow_html=True)
+    st.markdown('<div class="login-label">ادخلي كلمة المرور</div>', unsafe_allow_html=True)
 
-    password = st.text_input("", type="password", placeholder="اكتب كلمة المرور هنا")
+    password = st.text_input(
+        "كلمة المرور",
+        type="password",
+        placeholder="اكتبي كلمة المرور هنا",
+        label_visibility="collapsed"
+    )
 
-    if st.button("🚀 دخول"):
+    if st.button("🚀 دخول", use_container_width=True):
         if password == st.secrets["APP_PASSWORD"]:
             st.session_state.password_correct = True
             st.rerun()
         else:
             st.error("❌ كلمة المرور غلط")
-
-    st.markdown('</div>', unsafe_allow_html=True)
 
     return False
 
