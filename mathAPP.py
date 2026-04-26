@@ -494,6 +494,7 @@ elif st.session_state.page == "quiz":
                 st.session_state.page = "end"
                 st.rerun()
 
+
 elif st.session_state.page == "end":
     st.markdown("<h1 style='text-align:center; color:#25194f;'>🎉 انتهى التحدي</h1>", unsafe_allow_html=True)
     st.markdown(f"<h2 style='text-align:center;'>درجتك: {st.session_state.score} من 5</h2>", unsafe_allow_html=True)
