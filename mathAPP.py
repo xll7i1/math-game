@@ -79,6 +79,7 @@ def check_password():
         margin-bottom: 30px;
     }
 
+    /* أهم تعديل: نخلي حاوية الإدخال نفسها وردية */
     div[data-testid="stTextInput"] {
         background: transparent !important;
     }
@@ -94,14 +95,38 @@ def check_password():
         overflow: hidden !important;
     }
 
+    div[data-testid="stTextInput"] > div > div {
+        background: transparent !important;
+        box-shadow: none !important;
+    }
+
     div[data-testid="stTextInput"] input {
         background: transparent !important;
         color: #25194f !important;
         border: none !important;
+        border-radius: 18px !important;
         height: 70px !important;
         font-size: 24px !important;
         text-align: center !important;
+        box-shadow: none !important;
         outline: none !important;
+    }
+
+    div[data-testid="stTextInput"] input::placeholder {
+        color: #8b7b92 !important;
+        opacity: 1 !important;
+    }
+
+    div[data-testid="stTextInput"] button {
+        background: transparent !important;
+        color: #ec4899 !important;
+        border: none !important;
+        box-shadow: none !important;
+    }
+
+    div[data-testid="stTextInput"] button svg {
+        color: #ec4899 !important;
+        fill: #ec4899 !important;
     }
 
     div[data-testid="stFormSubmitButton"] button {
@@ -112,9 +137,49 @@ def check_password():
         border: none;
         color: white;
         background: linear-gradient(90deg, #ec4899, #7c3aed, #06b6d4);
+        box-shadow: 0 10px 25px rgba(0,0,0,0.2);
     }
     </style>
     """, unsafe_allow_html=True)
+
+    st.markdown("""
+    <div class="moving-header">
+        <div class="moving-text">
+            💜 I love math &nbsp;&nbsp;&nbsp;
+            ✨ Math is fun &nbsp;&nbsp;&nbsp;
+            🧠 الرياضيات ممتعة &nbsp;&nbsp;&nbsp;
+            📐 أحب الرياضيات &nbsp;&nbsp;&nbsp;
+            🎯 التحدي يزيد المتعة
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+
+    st.markdown('<div class="login-title">🧠 تحدي عبقري الرياضيات</div>', unsafe_allow_html=True)
+
+    with st.form("password_form"):
+        st.markdown('<div class="password-title">🔒 ادخلي كلمة المرور</div>', unsafe_allow_html=True)
+
+        password = st.text_input(
+            "كلمة المرور",
+            type="password",
+            placeholder="اكتبي كلمة المرور هنا",
+            label_visibility="collapsed"
+        )
+
+        submitted = st.form_submit_button("🚀 دخول", use_container_width=True)
+
+        if submitted:
+            if password == st.secrets["APP_PASSWORD"]:
+                st.session_state.password_correct = True
+                st.rerun()
+            else:
+                st.error("❌ كلمة المرور غلط")
+
+    return False
+
+
+if not check_password():
+    st.stop()
 
     st.markdown("""
     <div class="moving-header">
