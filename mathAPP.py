@@ -474,8 +474,8 @@ elif st.session_state.page == "quiz":
 
     with col_back:
         if st.button("⬅️ السابق", use_container_width=True):
-            if st.session_state.q_index > 0:
-                st.session_state.q_index -= 1
+            if st.session_state.i > 0:
+                st.session_state.i -= 1
                 st.session_state.answered = False
                 st.session_state.result = ""
                 st.session_state.selected = ""
@@ -487,13 +487,12 @@ elif st.session_state.page == "quiz":
             st.session_state.result = ""
             st.session_state.selected = ""
 
-            if st.session_state.q_index < len(questions) - 1:
-                st.session_state.q_index += 1
+            if st.session_state.i < len(questions) - 1:
+                st.session_state.i += 1
                 st.rerun()
             else:
                 st.session_state.page = "end"
                 st.rerun()
-
 
 elif st.session_state.page == "end":
     st.markdown("<h1 style='text-align:center; color:#25194f;'>🎉 انتهى التحدي</h1>", unsafe_allow_html=True)
