@@ -2,185 +2,50 @@ import streamlit as st
 
 st.set_page_config(page_title="تحدي الرياضيات", page_icon="🧠", layout="wide")
 
-def check_password():
-    if "password_correct" not in st.session_state:
-        st.session_state.password_correct = False
+/* الحاوية الأساسية */
+div[data-testid="stTextInput"] {
+    background: transparent !important;
+}
 
-    if st.session_state.password_correct:
-        return True
+/* الطبقة الداخلية (هي اللي سوداء) */
+div[data-testid="stTextInput"] > div > div {
+    background: linear-gradient(90deg, #ffe4f1, #f3e8ff) !important;
+    border: 3px solid #ec4899 !important;
+    border-radius: 18px !important;
+    height: 70px !important;
+    display: flex !important;
+    align-items: center !important;
+    padding: 0 12px !important;
+}
 
-    st.markdown("""
-    <style>
-    @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap');
+/* مربع الكتابة */
+div[data-testid="stTextInput"] input {
+    background: transparent !important;
+    border: none !important;
+    color: #2d0a4b !important;
+    font-size: 24px !important;
+    text-align: center !important;
+    width: 100% !important;
+}
 
-    html, body, [class*="css"] {
-        font-family: 'Tajawal', sans-serif;
-        direction: rtl;
-    }
+/* النص داخل المربع */
+div[data-testid="stTextInput"] input::placeholder {
+    color: #9c6b8f !important;
+    opacity: 1 !important;
+}
 
-    header {display: none;}
+/* زر العين */
+div[data-testid="stTextInput"] button {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    color: #ec4899 !important;
+}
 
-    .block-container {
-        padding-top: 95px;
-        max-width: 620px;
-        margin: auto;
-    }
-
-    .stApp {
-        background-image:
-        linear-gradient(rgba(255,255,255,0.42), rgba(255,255,255,0.56)),
-        url("https://img.freepik.com/premium-vector/math-theme-blank-banner-with-math-tools_1639-53505.jpg");
-        background-size: cover;
-        background-position: center;
-        background-attachment: fixed;
-    }
-
-    .moving-header {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        background: linear-gradient(90deg, #ec4899, #7c3aed, #06b6d4);
-        color: white;
-        font-size: 20px;
-        font-weight: 900;
-        padding: 12px 0;
-        overflow: hidden;
-        z-index: 999999;
-        box-shadow: 0 5px 18px rgba(0,0,0,0.20);
-    }
-
-    .moving-text {
-        display: inline-block;
-        white-space: nowrap;
-        animation: moveText 16s linear infinite;
-    }
-
-    @keyframes moveText {
-        0% {transform: translateX(100%);}
-        100% {transform: translateX(-100%);}
-    }
-
-    div[data-testid="stVerticalBlock"] {
-        gap: 0.7rem;
-    }
-
-    .login-card {
-        background: rgba(255,255,255,0.93);
-        border: 4px solid #ec4899;
-        border-radius: 28px;
-        padding: 38px 34px 30px 34px;
-        box-shadow: 0 18px 45px rgba(0,0,0,0.18);
-        text-align: center;
-    }
-
-    .login-main-title {
-        color: #25194f;
-        font-size: 34px;
-        font-weight: 900;
-        margin-bottom: 22px;
-    }
-
-    .password-title {
-        color: #ec4899;
-        font-size: 34px;
-        font-weight: 900;
-        margin-bottom: 22px;
-    }
-
-    div[data-testid="stTextInput"] {
-        margin-bottom: 18px;
-    }
-
-    div[data-testid="stTextInput"] > div {
-        background: linear-gradient(90deg, #ffe4f1, #f3e8ff) !important;
-        border: 3px solid #ec4899 !important;
-        border-radius: 17px !important;
-        min-height: 64px !important;
-        box-shadow: none !important;
-        overflow: hidden !important;
-    }
-
-    div[data-testid="stTextInput"] input {
-        background: transparent !important;
-        border: none !important;
-        color: #25194f !important;
-        font-size: 21px !important;
-        text-align: center !important;
-        height: 64px !important;
-        box-shadow: none !important;
-    }
-
-    div[data-testid="stTextInput"] input::placeholder {
-        color: #8b7b92 !important;
-        opacity: 1 !important;
-    }
-
-    div[data-testid="stTextInput"] button {
-        background: transparent !important;
-        border: none !important;
-        box-shadow: none !important;
-        color: #ec4899 !important;
-    }
-
-    .stButton>button {
-        height: 66px;
-        font-size: 24px;
-        font-weight: 900;
-        border-radius: 18px;
-        border: none;
-        color: white;
-        background: linear-gradient(90deg, #ec4899, #7c3aed, #06b6d4);
-        box-shadow: 0 12px 25px rgba(0,0,0,0.18);
-        transition: 0.25s;
-    }
-
-    .stButton>button:hover {
-        transform: scale(1.02);
-        color: white;
-        background: linear-gradient(90deg, #f43f9a, #8b5cf6, #06b6d4);
-    }
-    </style>
-    """, unsafe_allow_html=True)
-
-    st.markdown("""
-    <div class="moving-header">
-        <div class="moving-text">
-            💜 I love math &nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;
-            ✨ Math is fun &nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;
-            🎯 التحدي يزيد المتعة &nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;
-            ⭐ عالم جميل
-        </div>
-    </div>
-    """, unsafe_allow_html=True)
-
-    st.markdown("""
-    <div class="login-card">
-        <div class="login-main-title">🧠 تحدي عبقري الرياضيات</div>
-        <div class="password-title">🔒 ادخلي كلمة المرور</div>
-    """, unsafe_allow_html=True)
-
-    password = st.text_input(
-        "كلمة المرور",
-        type="password",
-        placeholder="اكتبي كلمة المرور هنا",
-        label_visibility="collapsed"
-    )
-
-    if st.button("🚀 دخول", use_container_width=True):
-        if password == st.secrets["APP_PASSWORD"]:
-            st.session_state.password_correct = True
-            st.rerun()
-        else:
-            st.error("❌ كلمة المرور غلط")
-
-    st.markdown("</div>", unsafe_allow_html=True)
-
-    return False
-
-
-if not check_password():
-    st.stop()
+/* إزالة أي ظل أسود نهائياً */
+div[data-testid="stTextInput"] * {
+    box-shadow: none !important;
+}
     
 st.markdown("""
 <style>
