@@ -14,14 +14,14 @@ def check_password():
     header {display: none;}
 
     .block-container {
-        padding-top: 90px;
-        max-width: 650px;
+        padding-top: 80px;
+        max-width: 720px;
         margin: auto;
     }
 
     .stApp {
         background-image:
-        linear-gradient(rgba(255,255,255,0.55), rgba(255,255,255,0.7)),
+        linear-gradient(rgba(255,255,255,0.55), rgba(255,255,255,0.70)),
         url("https://img.freepik.com/premium-vector/math-theme-blank-banner-with-math-tools_1639-53505.jpg");
         background-size: cover;
         background-position: center;
@@ -53,27 +53,59 @@ def check_password():
         100% {transform: translateX(-100%);}
     }
 
+    .login-title {
+        text-align: center;
+        color: #25194f;
+        font-size: 46px;
+        font-weight: 900;
+        margin-top: 60px;
+        margin-bottom: 25px;
+    }
+
     div[data-testid="stForm"] {
         background: rgba(255,255,255,0.92);
-        padding: 40px;
-        border-radius: 28px;
-        box-shadow: 0 12px 35px rgba(0,0,0,0.2);
-        border: 3px solid #ec4899;
+        padding: 45px;
+        border-radius: 30px;
+        box-shadow: 0 15px 40px rgba(0,0,0,0.18);
+        border: 4px solid #ec4899;
     }
 
+    .password-title {
+        text-align: center;
+        color: #ec4899;
+        font-size: 36px;
+        font-weight: 900;
+        margin-bottom: 30px;
+    }
+
+    /* مربع إدخال كلمة المرور */
     div[data-testid="stTextInput"] input {
         background: linear-gradient(90deg, #ffe4f1, #f3e8ff) !important;
+        color: #25194f !important;
         border: 3px solid #ec4899 !important;
         border-radius: 18px !important;
-        height: 65px !important;
+        height: 70px !important;
         font-size: 24px !important;
-        color: #25194f !important;
         text-align: center !important;
+        box-shadow: none !important;
     }
 
-    .stButton>button, div[data-testid="stFormSubmitButton"] button {
-        height: 65px;
-        font-size: 24px;
+    div[data-testid="stTextInput"] input::placeholder {
+        color: #8b7b92 !important;
+        opacity: 1 !important;
+    }
+
+    /* إزالة خلفية أيقونة العين السوداء */
+    div[data-testid="stTextInput"] button {
+        background: transparent !important;
+        color: #ec4899 !important;
+        border: none !important;
+        box-shadow: none !important;
+    }
+
+    div[data-testid="stFormSubmitButton"] button {
+        height: 70px;
+        font-size: 26px;
         font-weight: 900;
         border-radius: 20px;
         border: none;
@@ -87,23 +119,27 @@ def check_password():
     st.markdown("""
     <div class="moving-header">
         <div class="moving-text">
-            💜 I love math &nbsp;&nbsp;&nbsp; ✨ Math is fun &nbsp;&nbsp;&nbsp;
-            🧠 الرياضيات ممتعة &nbsp;&nbsp;&nbsp; 📐 أحب الرياضيات &nbsp;&nbsp;&nbsp;
+            💜 I love math &nbsp;&nbsp;&nbsp;
+            ✨ Math is fun &nbsp;&nbsp;&nbsp;
+            🧠 الرياضيات ممتعة &nbsp;&nbsp;&nbsp;
+            📐 أحب الرياضيات &nbsp;&nbsp;&nbsp;
             🎯 التحدي يزيد المتعة
         </div>
     </div>
     """, unsafe_allow_html=True)
 
-    st.markdown("<h1 style='text-align:center; color:#25194f;'>🧠 تحدي عبقري الرياضيات</h1>", unsafe_allow_html=True)
+    st.markdown('<div class="login-title">🧠 تحدي عبقري الرياضيات</div>', unsafe_allow_html=True)
 
     with st.form("password_form"):
-        st.markdown("<h2 style='text-align:center; color:#ec4899;'>🔒 ادخلي كلمة المرور</h2>", unsafe_allow_html=True)
+        st.markdown('<div class="password-title">🔒 ادخلي كلمة المرور</div>', unsafe_allow_html=True)
+
         password = st.text_input(
             "كلمة المرور",
             type="password",
             placeholder="اكتبي كلمة المرور هنا",
             label_visibility="collapsed"
         )
+
         submitted = st.form_submit_button("🚀 دخول", use_container_width=True)
 
         if submitted:
