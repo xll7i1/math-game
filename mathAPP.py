@@ -2,6 +2,7 @@ import streamlit as st
 
 st.set_page_config(page_title="تحدي الرياضيات", page_icon="🧠", layout="wide")
 
+
 def check_password():
     if "password_correct" not in st.session_state:
         st.session_state.password_correct = False
@@ -78,7 +79,6 @@ def check_password():
         margin-bottom: 30px;
     }
 
-    /* أهم تعديل: نخلي حاوية الإدخال نفسها وردية */
     div[data-testid="stTextInput"] {
         background: transparent !important;
     }
@@ -94,38 +94,14 @@ def check_password():
         overflow: hidden !important;
     }
 
-    div[data-testid="stTextInput"] > div > div {
-        background: transparent !important;
-        box-shadow: none !important;
-    }
-
     div[data-testid="stTextInput"] input {
         background: transparent !important;
         color: #25194f !important;
         border: none !important;
-        border-radius: 18px !important;
         height: 70px !important;
         font-size: 24px !important;
         text-align: center !important;
-        box-shadow: none !important;
         outline: none !important;
-    }
-
-    div[data-testid="stTextInput"] input::placeholder {
-        color: #8b7b92 !important;
-        opacity: 1 !important;
-    }
-
-    div[data-testid="stTextInput"] button {
-        background: transparent !important;
-        color: #ec4899 !important;
-        border: none !important;
-        box-shadow: none !important;
-    }
-
-    div[data-testid="stTextInput"] button svg {
-        color: #ec4899 !important;
-        fill: #ec4899 !important;
     }
 
     div[data-testid="stFormSubmitButton"] button {
@@ -136,7 +112,6 @@ def check_password():
         border: none;
         color: white;
         background: linear-gradient(90deg, #ec4899, #7c3aed, #06b6d4);
-        box-shadow: 0 10px 25px rgba(0,0,0,0.2);
     }
     </style>
     """, unsafe_allow_html=True)
@@ -180,9 +155,7 @@ def check_password():
 if not check_password():
     st.stop()
 
-if not check_password():
-    st.stop()
-    
+
 st.markdown("""
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap');
@@ -207,7 +180,6 @@ header {display: none;}
     background-attachment: fixed;
 }
 
-/* شريط الهيدر */
 .moving-header {
     position: fixed;
     top: 0;
@@ -322,7 +294,6 @@ header {display: none;}
 """, unsafe_allow_html=True)
 
 
-# الشريط المتحرك
 st.markdown("""
 <div class="moving-header">
     <div class="moving-text">
@@ -339,7 +310,6 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 
-# رسوم متحركة بالخلفية
 st.markdown("""
 <div class="float-shape s1">➕</div>
 <div class="float-shape s2">📐</div>
@@ -359,15 +329,7 @@ def sad_faces():
     <div class="sad-face" style="left:95%;">☹️</div>
     """, unsafe_allow_html=True)
 
-if "q_index" not in st.session_state:
-    st.session_state.q_index = 0
 
-if "score" not in st.session_state:
-    st.session_state.score = 0
-
-if "answered" not in st.session_state:
-    st.session_state.answered = False
-    
 questions = [
     {
         "q": "ما ناتج 5 + 3؟",
@@ -396,22 +358,31 @@ questions = [
     }
 ]
 
+
 if "page" not in st.session_state:
     st.session_state.page = "home"
+
 if "i" not in st.session_state:
     st.session_state.i = 0
+
 if "score" not in st.session_state:
     st.session_state.score = 0
+
 if "answered" not in st.session_state:
     st.session_state.answered = False
+
 if "selected" not in st.session_state:
     st.session_state.selected = ""
+
 if "result" not in st.session_state:
     st.session_state.result = ""
 
 
 if st.session_state.page == "home":
-    st.markdown("<h1 style='text-align:center; color:#25194f;'>🧠 تحدي عبقري الرياضيات</h1>", unsafe_allow_html=True)
+    st.markdown(
+        "<h1 style='text-align:center; color:#25194f;'>🧠 تحدي عبقري الرياضيات</h1>",
+        unsafe_allow_html=True
+    )
 
     if st.button("🚀 ابدأ التحدي", use_container_width=True):
         st.session_state.page = "quiz"
@@ -421,10 +392,20 @@ if st.session_state.page == "home":
 elif st.session_state.page == "quiz":
     q = questions[st.session_state.i]
 
-    st.markdown(f"<h1 style='text-align:center; color:#25194f;'>السؤال {st.session_state.i + 1} من 5</h1>", unsafe_allow_html=True)
-    st.markdown(f"<h2 style='text-align:center; color:#25194f;'>النقاط: {st.session_state.score}</h2>", unsafe_allow_html=True)
+    st.markdown(
+        f"<h1 style='text-align:center; color:#25194f;'>السؤال {st.session_state.i + 1} من 5</h1>",
+        unsafe_allow_html=True
+    )
 
-    st.markdown(f'<div class="question-box">{q["q"]}</div>', unsafe_allow_html=True)
+    st.markdown(
+        f"<h2 style='text-align:center; color:#25194f;'>النقاط: {st.session_state.score}</h2>",
+        unsafe_allow_html=True
+    )
+
+    st.markdown(
+        f'<div class="question-box">{q["q"]}</div>',
+        unsafe_allow_html=True
+    )
 
     col1, col2 = st.columns(2)
 
@@ -433,16 +414,20 @@ elif st.session_state.page == "quiz":
             st.session_state.selected = q["a"][0]
             st.session_state.answered = True
             st.session_state.result = "correct" if q["a"][0] == q["c"] else "wrong"
+
             if st.session_state.result == "correct":
                 st.session_state.score += 1
+
             st.rerun()
 
         if st.button(q["a"][2], use_container_width=True, disabled=st.session_state.answered):
             st.session_state.selected = q["a"][2]
             st.session_state.answered = True
             st.session_state.result = "correct" if q["a"][2] == q["c"] else "wrong"
+
             if st.session_state.result == "correct":
                 st.session_state.score += 1
+
             st.rerun()
 
     with col2:
@@ -450,24 +435,34 @@ elif st.session_state.page == "quiz":
             st.session_state.selected = q["a"][1]
             st.session_state.answered = True
             st.session_state.result = "correct" if q["a"][1] == q["c"] else "wrong"
+
             if st.session_state.result == "correct":
                 st.session_state.score += 1
+
             st.rerun()
 
         if st.button(q["a"][3], use_container_width=True, disabled=st.session_state.answered):
             st.session_state.selected = q["a"][3]
             st.session_state.answered = True
             st.session_state.result = "correct" if q["a"][3] == q["c"] else "wrong"
+
             if st.session_state.result == "correct":
                 st.session_state.score += 1
+
             st.rerun()
 
     if st.session_state.result == "correct":
-        st.markdown('<div class="correct-box">✅ إجابة صحيحة 🎉</div>', unsafe_allow_html=True)
+        st.markdown(
+            '<div class="correct-box">✅ إجابة صحيحة 🎉</div>',
+            unsafe_allow_html=True
+        )
         st.balloons()
- 
+
     elif st.session_state.result == "wrong":
-        st.markdown('<div class="wrong-box">❌ إجابة خاطئة 😢</div>', unsafe_allow_html=True)
+        st.markdown(
+            '<div class="wrong-box">❌ إجابة خاطئة 😢</div>',
+            unsafe_allow_html=True
+        )
         sad_faces()
 
     col_back, col_next = st.columns(2)
@@ -493,11 +488,18 @@ elif st.session_state.page == "quiz":
             else:
                 st.session_state.page = "end"
                 st.rerun()
-                
-                
+
+
 elif st.session_state.page == "end":
-    st.markdown("<h1 style='text-align:center; color:#25194f;'>🎉 انتهى التحدي</h1>", unsafe_allow_html=True)
-    st.markdown(f"<h2 style='text-align:center;'>درجتك: {st.session_state.score} من 5</h2>", unsafe_allow_html=True)
+    st.markdown(
+        "<h1 style='text-align:center; color:#25194f;'>🎉 انتهى التحدي</h1>",
+        unsafe_allow_html=True
+    )
+
+    st.markdown(
+        f"<h2 style='text-align:center;'>درجتك: {st.session_state.score} من 5</h2>",
+        unsafe_allow_html=True
+    )
 
     if st.button("🔁 إعادة التحدي", use_container_width=True):
         st.session_state.page = "home"
