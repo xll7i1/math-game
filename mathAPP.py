@@ -3,15 +3,23 @@ import streamlit as st
 st.set_page_config(page_title="تحدي الرياضيات", page_icon="🧠", layout="wide")
 
 def check_password():
+    if "password_correct" not in st.session_state:
+        st.session_state.password_correct = False
+
+    if st.session_state.password_correct:
+        return True
+
     password = st.text_input("🔒 أدخلي كلمة المرور", type="password")
 
     if password == st.secrets["APP_PASSWORD"]:
-        return True
+        st.session_state.password_correct = True
+        st.rerun()
 
     if password:
         st.error("❌ كلمة المرور غلط")
 
     return False
+
 
 if not check_password():
     st.stop()
