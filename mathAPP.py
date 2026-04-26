@@ -2,7 +2,6 @@ import streamlit as st
 
 st.set_page_config(page_title="تحدي الرياضيات", page_icon="🧠", layout="wide")
 
-
 def check_password():
     if "password_correct" not in st.session_state:
         st.session_state.password_correct = False
@@ -180,45 +179,6 @@ def check_password():
 
 if not check_password():
     st.stop()
-
-    st.markdown("""
-    <div class="moving-header">
-        <div class="moving-text">
-            💜 I love math &nbsp;&nbsp;&nbsp;
-            ✨ Math is fun &nbsp;&nbsp;&nbsp;
-            🧠 الرياضيات ممتعة &nbsp;&nbsp;&nbsp;
-            📐 أحب الرياضيات &nbsp;&nbsp;&nbsp;
-            🎯 التحدي يزيد المتعة
-        </div>
-    </div>
-    """, unsafe_allow_html=True)
-
-    st.markdown('<div class="login-title">🧠 تحدي عبقري الرياضيات</div>', unsafe_allow_html=True)
-
-    with st.form("password_form"):
-        st.markdown('<div class="password-title">🔒 ادخلي كلمة المرور</div>', unsafe_allow_html=True)
-
-        password = st.text_input(
-            "كلمة المرور",
-            type="password",
-            placeholder="اكتبي كلمة المرور هنا",
-            label_visibility="collapsed"
-        )
-
-        submitted = st.form_submit_button("🚀 دخول", use_container_width=True)
-
-        if submitted:
-            if password == st.secrets["APP_PASSWORD"]:
-                st.session_state.password_correct = True
-                st.rerun()
-            else:
-                st.error("❌ كلمة المرور غلط")
-       return False
-  
-
-if not check_password():
-    st.stop()
-
 
 st.markdown("""
 <style>
