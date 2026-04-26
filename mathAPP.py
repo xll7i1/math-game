@@ -179,6 +179,9 @@ def check_password():
 
 if not check_password():
     st.stop()
+
+if not check_password():
+    st.stop()
     
 st.markdown("""
 <style>
@@ -356,35 +359,42 @@ def sad_faces():
     <div class="sad-face" style="left:95%;">☹️</div>
     """, unsafe_allow_html=True)
 
+if "q_index" not in st.session_state:
+    st.session_state.q_index = 0
 
+if "score" not in st.session_state:
+    st.session_state.score = 0
+
+if "answered" not in st.session_state:
+    st.session_state.answered = False
+    
 questions = [
     {
-        "q": "في مثلث قائم، إذا كان الضلعان القائمان 3 و 4، فما طول الوتر؟",
-        "a": ["5", "6", "7", "8"],
-        "c": "5"
+        "question": "ما ناتج 5 + 3 ؟",
+        "options": ["6", "7", "8", "9"],
+        "answer": "8"
     },
     {
-        "q": "في مثلث قائم، الوتر = 13 وأحد الضلعين = 5، أوجد قيمة س للضلع الآخر.",
-        "a": ["8", "10", "12", "14"],
-        "c": "12"
+        "question": "ما ناتج 12 ÷ 3 ؟",
+        "options": ["2", "3", "4", "6"],
+        "answer": "4"
     },
     {
-        "q": "إذا كان س² + 6² = 10²، فما قيمة س؟",
-        "a": ["6", "7", "8", "9"],
-        "c": "8"
+        "question": "إذا كان sin(90°) = ؟",
+        "options": ["0", "1", "-1", "0.5"],
+        "answer": "1"
     },
     {
-        "q": "في مثلث قائم، إذا كان الوتر 15 وأحد الضلعين 9، فما طول الضلع الآخر؟",
-        "a": ["10", "11", "12", "13"],
-        "c": "12"
+        "question": "إذا كان cos(0°) = ؟",
+        "options": ["0", "1", "-1", "0.5"],
+        "answer": "1"
     },
     {
-        "q": "أي مجموعة أطوال تمثل مثلثًا قائم الزاوية؟",
-        "a": ["6، 8، 10", "4، 5، 6", "7، 8، 9", "5، 6، 8"],
-        "c": "6، 8، 10"
+        "question": "في مثلث قائم: إذا كان a=3 و b=4 فما قيمة c ؟",
+        "options": ["5", "6", "7", "4"],
+        "answer": "5"
     }
 ]
-
 
 if "page" not in st.session_state:
     st.session_state.page = "home"
@@ -460,18 +470,29 @@ elif st.session_state.page == "quiz":
         st.markdown('<div class="wrong-box">❌ إجابة خاطئة 😢</div>', unsafe_allow_html=True)
         sad_faces()
 
-    if st.session_state.answered:
-        if st.button("التالي ➡️", use_container_width=True):
-            st.session_state.answered = False
-            st.session_state.selected = ""
-            st.session_state.result = ""
+    col_back, col_next = st.columns(2)
 
-            if st.session_state.i < 4:
-                st.session_state.i += 1
-                st.rerun()
-            else:
-                st.session_state.page = "end"
-                st.rerun()
+    with col_back:  
+     if st.button("⬅️ السابق", use_container_width=True):
+        if st.session_state.q_index > 0:
+            st.session_state.q_index -= 1
+            st.session_state.answered = False
+            st.session_state.result = ""
+            st.session_state.selected = ""
+            st.rerun()
+
+    with col_next:
+      if st.button("التالي ➡️", use_container_width=True):
+        st.session_state.answered = False
+        st.session_state.result = ""
+        st.session_state.selected = ""
+
+        if st.session_state.q_index < len(questions) - 1:
+            st.session_state.q_index += 1
+            st.rerun()
+        else:
+            st.session_state.page = "end"
+            st.rerun()
 
 
 elif st.session_state.page == "end":
