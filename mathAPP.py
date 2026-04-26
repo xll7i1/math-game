@@ -465,12 +465,12 @@ elif st.session_state.page == "quiz":
     if st.session_state.result == "correct":
         st.markdown('<div class="correct-box">✅ إجابة صحيحة 🎉</div>', unsafe_allow_html=True)
         st.balloons()
-
+ 
     elif st.session_state.result == "wrong":
         st.markdown('<div class="wrong-box">❌ إجابة خاطئة 😢</div>', unsafe_allow_html=True)
         sad_faces()
 
-        col_back, col_next = st.columns(2)
+    col_back, col_next = st.columns(2)
 
     with col_back:
         if st.button("⬅️ السابق", use_container_width=True):
@@ -493,8 +493,8 @@ elif st.session_state.page == "quiz":
             else:
                 st.session_state.page = "end"
                 st.rerun()
-
-
+                
+                
 elif st.session_state.page == "end":
     st.markdown("<h1 style='text-align:center; color:#25194f;'>🎉 انتهى التحدي</h1>", unsafe_allow_html=True)
     st.markdown(f"<h2 style='text-align:center;'>درجتك: {st.session_state.score} من 5</h2>", unsafe_allow_html=True)
