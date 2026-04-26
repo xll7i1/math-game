@@ -15,7 +15,7 @@ def check_password():
 
     .block-container {
         padding-top: 90px;
-        max-width: 700px;
+        max-width: 650px;
         margin: auto;
     }
 
@@ -40,7 +40,6 @@ def check_password():
         padding: 16px 0;
         overflow: hidden;
         z-index: 999999;
-        box-shadow: 0 6px 20px rgba(0,0,0,0.25);
     }
 
     .moving-text {
@@ -54,43 +53,27 @@ def check_password():
         100% {transform: translateX(-100%);}
     }
 
-    .login-title {
-        text-align: center;
-        color: #25194f;
-        font-size: 42px;
-        font-weight: 900;
-        margin-top: 70px;
-        margin-bottom: 25px;
-    }
-
-    .login-subtitle {
-        text-align: center;
-        color: #ec4899;
-        font-size: 55px;
-        margin-bottom: 10px;
-    }
-
-    .login-label {
-        text-align: center;
-        color: #25194f;
-        font-size: 26px;
-        font-weight: 900;
-        margin-bottom: 20px;
+    div[data-testid="stForm"] {
+        background: rgba(255,255,255,0.92);
+        padding: 40px;
+        border-radius: 28px;
+        box-shadow: 0 12px 35px rgba(0,0,0,0.2);
+        border: 3px solid #ec4899;
     }
 
     div[data-testid="stTextInput"] input {
         background: linear-gradient(90deg, #ffe4f1, #f3e8ff) !important;
         border: 3px solid #ec4899 !important;
         border-radius: 18px !important;
-        height: 70px !important;
+        height: 65px !important;
         font-size: 24px !important;
         color: #25194f !important;
         text-align: center !important;
     }
 
-    .stButton>button {
-        height: 70px;
-        font-size: 26px;
+    .stButton>button, div[data-testid="stFormSubmitButton"] button {
+        height: 65px;
+        font-size: 24px;
         font-weight: 900;
         border-radius: 20px;
         border: none;
@@ -98,43 +81,37 @@ def check_password():
         background: linear-gradient(90deg, #ec4899, #7c3aed, #06b6d4);
         box-shadow: 0 10px 25px rgba(0,0,0,0.2);
     }
-
-    .stButton>button:hover {
-        transform: scale(1.03);
-        color: white;
-    }
     </style>
     """, unsafe_allow_html=True)
 
     st.markdown("""
     <div class="moving-header">
         <div class="moving-text">
-            💜 I love math &nbsp;&nbsp;&nbsp;
-            ✨ Math is fun &nbsp;&nbsp;&nbsp;
-            🧠 الرياضيات ممتعة &nbsp;&nbsp;&nbsp;
-            📐 أحب الرياضيات &nbsp;&nbsp;&nbsp;
+            💜 I love math &nbsp;&nbsp;&nbsp; ✨ Math is fun &nbsp;&nbsp;&nbsp;
+            🧠 الرياضيات ممتعة &nbsp;&nbsp;&nbsp; 📐 أحب الرياضيات &nbsp;&nbsp;&nbsp;
             🎯 التحدي يزيد المتعة
         </div>
     </div>
     """, unsafe_allow_html=True)
 
-    st.markdown('<div class="login-title">🧠 تحدي عبقري الرياضيات</div>', unsafe_allow_html=True)
-    st.markdown('<div class="login-subtitle">🔒</div>', unsafe_allow_html=True)
-    st.markdown('<div class="login-label">ادخلي كلمة المرور</div>', unsafe_allow_html=True)
+    st.markdown("<h1 style='text-align:center; color:#25194f;'>🧠 تحدي عبقري الرياضيات</h1>", unsafe_allow_html=True)
 
-    password = st.text_input(
-        "كلمة المرور",
-        type="password",
-        placeholder="اكتبي كلمة المرور هنا",
-        label_visibility="collapsed"
-    )
+    with st.form("password_form"):
+        st.markdown("<h2 style='text-align:center; color:#ec4899;'>🔒 ادخلي كلمة المرور</h2>", unsafe_allow_html=True)
+        password = st.text_input(
+            "كلمة المرور",
+            type="password",
+            placeholder="اكتبي كلمة المرور هنا",
+            label_visibility="collapsed"
+        )
+        submitted = st.form_submit_button("🚀 دخول", use_container_width=True)
 
-    if st.button("🚀 دخول", use_container_width=True):
-        if password == st.secrets["APP_PASSWORD"]:
-            st.session_state.password_correct = True
-            st.rerun()
-        else:
-            st.error("❌ كلمة المرور غلط")
+        if submitted:
+            if password == st.secrets["APP_PASSWORD"]:
+                st.session_state.password_correct = True
+                st.rerun()
+            else:
+                st.error("❌ كلمة المرور غلط")
 
     return False
 
