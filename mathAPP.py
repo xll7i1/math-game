@@ -9,7 +9,41 @@ def check_password():
     if st.session_state.password_correct:
         return True
 
-    password = st.text_input("🔒 أدخلي كلمة المرور", type="password")
+    # 🎨 نفس الثيم
+    st.markdown("""
+    <style>
+    .stApp {
+        background-image: linear-gradient(rgba(255,255,255,0.6), rgba(255,255,255,0.6)),
+        url("https://img.freepik.com/premium-vector/math-theme-blank-banner-with-math-tools_1639-53505.jpg");
+        background-size: cover;
+        background-position: center;
+    }
+
+    .password-box {
+        background: linear-gradient(135deg, #ff7eb3, #6a5af9);
+        padding: 40px;
+        border-radius: 20px;
+        text-align: center;
+        color: white;
+        width: 60%;
+        margin: auto;
+        margin-top: 150px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
+
+    .title {
+        font-size: 32px;
+        font-weight: bold;
+        margin-bottom: 20px;
+    }
+    </style>
+    """, unsafe_allow_html=True)
+
+    # 🎯 واجهة الباسورد
+    st.markdown('<div class="password-box">', unsafe_allow_html=True)
+    st.markdown('<div class="title">🔒 دخول التحدي</div>', unsafe_allow_html=True)
+
+    password = st.text_input("أدخلي كلمة المرور", type="password")
 
     if password == st.secrets["APP_PASSWORD"]:
         st.session_state.password_correct = True
@@ -17,6 +51,8 @@ def check_password():
 
     if password:
         st.error("❌ كلمة المرور غلط")
+
+    st.markdown('</div>', unsafe_allow_html=True)
 
     return False
 
