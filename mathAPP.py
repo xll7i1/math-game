@@ -2,6 +2,20 @@ import streamlit as st
 
 st.set_page_config(page_title="تحدي الرياضيات", page_icon="🧠", layout="wide")
 
+def check_password():
+    password = st.text_input("🔒 أدخلي كلمة المرور", type="password")
+
+    if password == st.secrets["APP_PASSWORD"]:
+        return True
+
+    if password:
+        st.error("❌ كلمة المرور غلط")
+
+    return False
+
+if not check_password():
+    st.stop()
+    
 st.markdown("""
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap');
