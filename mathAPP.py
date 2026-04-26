@@ -2,50 +2,183 @@ import streamlit as st
 
 st.set_page_config(page_title="تحدي الرياضيات", page_icon="🧠", layout="wide")
 
-/* الحاوية الأساسية */
-div[data-testid="stTextInput"] {
-    background: transparent !important;
-}
+def check_password():
+    if "password_correct" not in st.session_state:
+        st.session_state.password_correct = False
 
-/* الطبقة الداخلية (هي اللي سوداء) */
-div[data-testid="stTextInput"] > div > div {
-    background: linear-gradient(90deg, #ffe4f1, #f3e8ff) !important;
-    border: 3px solid #ec4899 !important;
-    border-radius: 18px !important;
-    height: 70px !important;
-    display: flex !important;
-    align-items: center !important;
-    padding: 0 12px !important;
-}
+    if st.session_state.password_correct:
+        return True
 
-/* مربع الكتابة */
-div[data-testid="stTextInput"] input {
-    background: transparent !important;
-    border: none !important;
-    color: #2d0a4b !important;
-    font-size: 24px !important;
-    text-align: center !important;
-    width: 100% !important;
-}
+    st.markdown("""
+    <style>
+    header {display: none;}
 
-/* النص داخل المربع */
-div[data-testid="stTextInput"] input::placeholder {
-    color: #9c6b8f !important;
-    opacity: 1 !important;
-}
+    .block-container {
+        padding-top: 80px;
+        max-width: 720px;
+        margin: auto;
+    }
 
-/* زر العين */
-div[data-testid="stTextInput"] button {
-    background: transparent !important;
-    border: none !important;
-    box-shadow: none !important;
-    color: #ec4899 !important;
-}
+    .stApp {
+        background-image:
+        linear-gradient(rgba(255,255,255,0.55), rgba(255,255,255,0.70)),
+        url("https://img.freepik.com/premium-vector/math-theme-blank-banner-with-math-tools_1639-53505.jpg");
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+    }
 
-/* إزالة أي ظل أسود نهائياً */
-div[data-testid="stTextInput"] * {
-    box-shadow: none !important;
-}
+    .moving-header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background: linear-gradient(90deg, #ec4899, #7c3aed, #06b6d4);
+        color: white;
+        font-size: 26px;
+        font-weight: 900;
+        padding: 16px 0;
+        overflow: hidden;
+        z-index: 999999;
+    }
+
+    .moving-text {
+        display: inline-block;
+        white-space: nowrap;
+        animation: moveText 15s linear infinite;
+    }
+
+    @keyframes moveText {
+        0% {transform: translateX(100%);}
+        100% {transform: translateX(-100%);}
+    }
+
+    .login-title {
+        text-align: center;
+        color: #25194f;
+        font-size: 46px;
+        font-weight: 900;
+        margin-top: 60px;
+        margin-bottom: 25px;
+    }
+
+    div[data-testid="stForm"] {
+        background: rgba(255,255,255,0.92);
+        padding: 45px;
+        border-radius: 30px;
+        box-shadow: 0 15px 40px rgba(0,0,0,0.18);
+        border: 4px solid #ec4899;
+    }
+
+    .password-title {
+        text-align: center;
+        color: #ec4899;
+        font-size: 36px;
+        font-weight: 900;
+        margin-bottom: 30px;
+    }
+
+    /* أهم تعديل: نخلي حاوية الإدخال نفسها وردية */
+    div[data-testid="stTextInput"] {
+        background: transparent !important;
+    }
+
+    div[data-testid="stTextInput"] > div {
+        background: linear-gradient(90deg, #ffe4f1, #ffffff) !important;
+        border: 3px solid #ec4899 !important;
+        border-radius: 18px !important;
+        min-height: 70px !important;
+        display: flex !important;
+        align-items: center !important;
+        box-shadow: none !important;
+        overflow: hidden !important;
+    }
+
+    div[data-testid="stTextInput"] > div > div {
+        background: transparent !important;
+        box-shadow: none !important;
+    }
+
+    div[data-testid="stTextInput"] input {
+        background: transparent !important;
+        color: #25194f !important;
+        border: none !important;
+        border-radius: 18px !important;
+        height: 70px !important;
+        font-size: 24px !important;
+        text-align: center !important;
+        box-shadow: none !important;
+        outline: none !important;
+    }
+
+    div[data-testid="stTextInput"] input::placeholder {
+        color: #8b7b92 !important;
+        opacity: 1 !important;
+    }
+
+    div[data-testid="stTextInput"] button {
+        background: transparent !important;
+        color: #ec4899 !important;
+        border: none !important;
+        box-shadow: none !important;
+    }
+
+    div[data-testid="stTextInput"] button svg {
+        color: #ec4899 !important;
+        fill: #ec4899 !important;
+    }
+
+    div[data-testid="stFormSubmitButton"] button {
+        height: 70px;
+        font-size: 26px;
+        font-weight: 900;
+        border-radius: 20px;
+        border: none;
+        color: white;
+        background: linear-gradient(90deg, #ec4899, #7c3aed, #06b6d4);
+        box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    }
+    </style>
+    """, unsafe_allow_html=True)
+
+    st.markdown("""
+    <div class="moving-header">
+        <div class="moving-text">
+            💜 I love math &nbsp;&nbsp;&nbsp;
+            ✨ Math is fun &nbsp;&nbsp;&nbsp;
+            🧠 الرياضيات ممتعة &nbsp;&nbsp;&nbsp;
+            📐 أحب الرياضيات &nbsp;&nbsp;&nbsp;
+            🎯 التحدي يزيد المتعة
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+
+    st.markdown('<div class="login-title">🧠 تحدي عبقري الرياضيات</div>', unsafe_allow_html=True)
+
+    with st.form("password_form"):
+        st.markdown('<div class="password-title">🔒 ادخلي كلمة المرور</div>', unsafe_allow_html=True)
+
+        password = st.text_input(
+            "كلمة المرور",
+            type="password",
+            placeholder="اكتبي كلمة المرور هنا",
+            label_visibility="collapsed"
+        )
+
+        submitted = st.form_submit_button("🚀 دخول", use_container_width=True)
+
+        if submitted:
+            if password == st.secrets["APP_PASSWORD"]:
+                st.session_state.password_correct = True
+                st.rerun()
+            else:
+                st.error("❌ كلمة المرور غلط")
+
+    return False
+
+
+if not check_password():
+    st.stop()
     
 st.markdown("""
 <style>
